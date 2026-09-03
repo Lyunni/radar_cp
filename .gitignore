@@ -31,3 +31,8 @@ Thumbs.db
 # Environment
 .env
 .env.*
+
+# MATLAB CLI toolkit (local-only, toolkit at D:\tools\matlab-cli)
+.matlab_debug/
+start_matlab.py
+start_matlab.bat
