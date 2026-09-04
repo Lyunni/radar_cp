@@ -36,3 +36,6 @@ Thumbs.db
 .matlab_debug/
 start_matlab.py
 start_matlab.bat
+
+# MATLAB engine demo (local-only, not shared to GitHub)
+matlab_engine_demo.py
