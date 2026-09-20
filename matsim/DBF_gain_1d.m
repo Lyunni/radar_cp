@@ -1,6 +1,6 @@
-function G = DBF_gain(fc, theta, array_num, theta_0, x_in)
-%DBF_GAIN 数字波束形成(DBF)的归一化阵列增益
-%   G = DBF_gain(fc, theta, array_num, theta_0, x_in)
+function G = DBF_gain_1d(fc, theta, array_num, theta_0, x_in)
+%DBF_GAIN_1D 一维均匀线阵(ULA)数字波束形成(DBF)的归一化阵列增益
+%   G = DBF_gain_1d(fc, theta, array_num, theta_0, x_in)
 %
 %   输入:
 %     fc        - 载波频率(Hz),用于反算波长 lamda = c/fc

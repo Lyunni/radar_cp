@@ -24,19 +24,19 @@ phi = 0;                % cu shi
 x_in = exp(1j*omega*t+phi); % 复指数载波,幅度为 1
 
 % ===== 波束形成:归一化阵列增益 =====
-G = DBF_gain(fc, theta, array_num, theta_0, x_in);
+G = DBF_gain_1d(fc, theta, array_num, theta_0, x_in);
 fprintf('归一化阵列增益 G = %.6f\n', G);
 
 % ===== 天线方向图:固定主瓣指向 theta,扫描入射角 theta_0 =====
-d = 12.8;                         % 阵元间距 (m),与 DBF_gain 内部保持一致
+d = 12.8;                         % 阵元间距 (m),与 DBF_gain_1d 内部保持一致
 lamda = 3e8/fc;                   % 工作波长 (m)
 theta0_scan_deg = -90:0.1:90;     % 入射角扫描范围(相对法线,deg),0.1° 步进保证零点清晰
 theta0_scan = deg2rad(theta0_scan_deg);
 
-% 仿真链路(蓝色):主瓣指向固定为 theta,入射角逐点扫描,每个角度调一次 DBF_gain
+% 仿真链路(蓝色):主瓣指向固定为 theta,入射角逐点扫描,每个角度调一次 DBF_gain_1d
 G_pattern = zeros(size(theta0_scan));
 for k = 1:numel(theta0_scan)
-    G_pattern(k) = DBF_gain(fc, theta, array_num, theta0_scan(k), x_in);
+    G_pattern(k) = DBF_gain_1d(fc, theta, array_num, theta0_scan(k), x_in);
 end
 
 % 理论方向图(闭式解,Dirichlet 核),u 为补偿后的残余相位步进;
@@ -64,7 +64,7 @@ xlabel('入射角 \theta_0 (^\circ)');
 ylabel('归一化增益 (dB)');
 title(sprintf(['理论 vs 仿真  N=%d, fc=%.1f MHz, d/\\lambda=%.3f'], ...
       array_num, fc/1e6, d/lamda));
-legend('仿真 (DBF\_gain)', '理论 (Dirichlet)', 'Location', 'best');
+legend('仿真 (DBF\_gain\_1d)', '理论 (Dirichlet)', 'Location', 'best');
 
 % golden 数值核对:线性域最大偏差(两条曲线同式,只应差浮点精度)
 fprintf('理论-仿真最大偏差 = %.3e\n', max(abs(G_pattern - AF_lamda)));
