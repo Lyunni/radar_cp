@@ -7,8 +7,8 @@ c = 3e8;                % 光速 (m/s)
 fc = 10e6;              % 载频 (Hz),可更改
 lambda = c/fc;          % 工作波长 (m)
 
-theta = 0;              % 波束指向俯仰角(相对+z轴),可更改,范围 0~pi
-phi = 0;                % 波束指向方位角(相对+x轴),可更改,范围 0~2pi
+theta = pi/4;              % 波束指向俯仰角(相对+z轴),可更改,范围 0~pi
+phi = pi/2;                % 波束指向方位角(相对+x轴),可更改,范围 0~2pi
 theta_0 = 0;            % 输入信号到达方向俯仰角,可更改
 phi_0 = 0;              % 输入信号到达方向方位角,可更改
 
@@ -19,8 +19,8 @@ N = K * (fs/fc);        % 采样点数(整周期数 -> FFT 无泄漏)
 t = (0:N-1)/fs;         % 时间轴
 
 % ===== 阵列参数(可更改) =====
-array_m = 4;            % x 向阵元数,可更改
-array_n = 12;           % y 向阵元数,可更改
+array_m = 8;            % x 向阵元数,可更改
+array_n = 8;           % y 向阵元数,可更改
 array_dx = 12.8;        % x 向阵元间距 (m),可更改
 array_dy = 12.8;        % y 向阵元间距 (m),可更改
 
@@ -104,14 +104,14 @@ grid on;
 xlabel('x');
 ylabel('y');
 zlabel('z');
-title(sprintf('三维波束方向图(x=%d y=%d)', array_m, array_n));
+title(sprintf('三维波束方向图 %d×%d 阵元, 指向 (θ=%.1f°, φ=%.1f°)', array_m, array_n, theta*180/pi, phi*180/pi));
 view(120, 25);                  % 方位角 120°,仰角 25°
 
 % 颜色条显示 dB
 colorbar;
 clim([floor_dB 0]);
 colormap jet;
-print(h2, '-dpng', '-r200', fullfile(fileparts(mfilename('fullpath')), 'DBF_2d_pattern_3d.png'));
+print(h2, '-dpng', '-r200', fullfile(fileparts(mfilename('fullpath')), 'DBF_2d_pattern_3d_6.png'));
 
 % ===== 图3: 主切面方向图(phi=0°/90°/180°/270°) =====
 h3 = figure('Name', 'Beam Pattern Cuts', 'NumberTitle', 'off');
